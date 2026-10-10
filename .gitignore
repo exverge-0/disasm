@@ -1,3 +1,10 @@
-
 /dist
 /dist_pages
+
+Makefile
+CMake*
+cmake*
+
+*.js
+*.wasm
+*.a
