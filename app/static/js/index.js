@@ -65,7 +65,7 @@ document.body.onload = ()=> {
         liveUpdates: true
     }})
 
-
+    send_asm_update()
 }
 
 function init_settings(){
@@ -83,7 +83,21 @@ function init_settings(){
         global_settings.last_focus = 0 // 0 means on the asm editor and 1 means on the machine editor
 
     }
-
+    
+    for (const [key, value] of new URLSearchParams(window.location.search).entries()) {
+        if (key === "arch")
+            global_settings['ARCH'] = value;
+        else if (key === "mode")
+            global_settings['MODE'] = value;
+        else if (key === "endian")
+            global_settings['ENDIAN'] = value;
+        else if (key === "offset")
+            global_settings['OFFSET'] = value;
+        else if (key === "code") {
+            global_settings.last_focus = 0;
+            global_settings.asm_code = atob(value);
+        }
+    }
 
     asm_editor = ace.edit("asm_editor");// The editor where we write asm 
     asm_editor.setTheme("ace/theme/twilight");
